@@ -1,4 +1,5 @@
 import heapq
+import math
 
 from typing import Any
 
@@ -69,3 +70,38 @@ class MinHeap:
         if not self.heap:
             raise IndexError("Heap is empty")
         return self.heap[0]
+
+    def __str__(self) -> str:
+        """
+        Print the binary heap as a tree-like structure.
+
+        Returns
+        -------
+        None
+        """
+        return_string = "Min-Heap Tree Representation".center(80) + "\n"
+        if not self.heap:
+            return_string += "<empty heap>"
+            return return_string
+
+        height = math.floor(math.log2(len(self.heap))) + 1
+        max_width = 2 ** (height - 1)
+
+        index = 0
+        for level in range(height):
+            level_width = 2 ** level
+            padding = " " * (max_width // level_width)
+            line = ""
+            for _ in range(level_width):
+                if index >= len(self.heap):
+                    break
+                line += f"{padding}{self.heap[index]}{padding}"
+                index += 1
+            return_string += line.center(80) + "\n"
+        return return_string.rstrip("\n")
+
+if __name__ == "__main__":
+    heap = MinHeap()
+    for num in [10, 4, 7, 1, 8, 3, 9]:
+        heap.insert(num)
+    print(heap)
