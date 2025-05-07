@@ -105,3 +105,6 @@ if __name__ == "__main__":
     for num in [10, 4, 7, 1, 8, 3, 9]:
         heap.insert(num)
     print(heap)
+    print()
+    print("Min-Heap List Representation".center(80))
+    print(f"{heap.heap}".center(80))
