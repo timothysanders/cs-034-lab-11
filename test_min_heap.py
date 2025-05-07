@@ -1,5 +1,3 @@
-# TODO: Create MinHeap instance and test insert/remove
-# TODO: Create Treap instance and test insert/search
 import pytest
 from min_heap import MinHeap
 
@@ -27,12 +25,12 @@ def test_remove_min():
 
 def test_peek_min_on_empty_heap():
     heap = MinHeap()
-    with pytest.raises(IndexError, match="peek_min.*empty heap"):
+    with pytest.raises(IndexError, match="Heap is empty"):
         heap.peek_min()
 
 def test_remove_min_on_empty_heap():
     heap = MinHeap()
-    with pytest.raises(IndexError, match="remove_min.*empty heap"):
+    with pytest.raises(IndexError, match="Heap is empty"):
         heap.remove_min()
 
 def test_insert_duplicates():
