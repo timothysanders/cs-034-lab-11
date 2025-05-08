@@ -80,11 +80,6 @@ class Treap:
 
 
     def print_tree(self, root=None, indent=""):
-        #if root is None:
-            #root = self.root
-        #if level > 10:  # Avoid infinite loops or very deep trees
-            #print(indent + "...")
-            #return
         if root:
             self.print_tree(root.right, indent + "         ")
             print(indent + f"({root.key}/{root.priority/100})")
