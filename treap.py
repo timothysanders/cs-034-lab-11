@@ -6,8 +6,6 @@
 
 #--------------------------------------------------------------------------------------------
 
-
-
 import time
 import random
 import sys
@@ -81,16 +79,16 @@ class Treap:
             return self.search(root.right, key)
 
 
-    def print_tree(self, root=None, level=0, indent=""):
+    def print_tree(self, root=None, indent=""):
         #if root is None:
             #root = self.root
         #if level > 10:  # Avoid infinite loops or very deep trees
             #print(indent + "...")
             #return
         if root:
-            self.print_tree(root.right, level + 1, indent + "    ")
-            print(indent + f"({root.key}/{root.priority})")
-            self.print_tree(root.left, level + 1, indent + "    ")
+            self.print_tree(root.right, indent + "         ")
+            print(indent + f"({root.key}/{root.priority/100})")
+            self.print_tree(root.left, indent + "         ")
 
 if __name__ == "__main__":
     treap = Treap()
@@ -98,7 +96,10 @@ if __name__ == "__main__":
 
     for value in treap_values:
         treap.root = treap.insert(treap.root, value)
-        print()
+        print("\nTree Structure:")
+        print("----------------\n")
+        treap.print_tree(treap.root)
+        print("\n\n==================================================")
 
     treap.print_tree()
     print(f"\nTotal Rotations: {treap.rotation_count}")
