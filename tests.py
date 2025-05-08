@@ -7,6 +7,7 @@
 
 import pytest
 from min_heap import MinHeap
+from treap import Treap
 
 def test_insert_and_peek_min():
     heap = MinHeap()
@@ -50,3 +51,22 @@ def test_insert_duplicates():
     assert heap.remove_min() == 1
     assert heap.remove_min() == 2
     assert heap.remove_min() == 2
+
+def test_treap_rotation_count():
+    treap = Treap()
+    for val in [90, 100, 110, 150, 160]:
+        treap.root = treap.insert(treap.root, val)
+    assert treap.rotation_count > 0
+    assert all("rotation" in log.lower() for log in treap.log)
+
+def test_treap_insert_and_search():
+    treap = Treap()
+    for val in [400, 401, 500, 501, 600, 601]:
+        treap.root = treap.insert(treap.root, val)
+
+    assert treap.search(treap.root, 400) == 400
+    assert treap.search(treap.root, 401) == 401
+    assert treap.search(treap.root, 500) == 500
+    assert treap.search(treap.root, 501) == 501
+    assert treap.search(treap.root, 600) == 600
+    assert treap.search(treap.root, 601) == 601
