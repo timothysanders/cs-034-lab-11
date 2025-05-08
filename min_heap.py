@@ -115,26 +115,21 @@ if __name__ == "__main__":
     heap = MinHeap()
     for num in [10, 4, 7, 1, 8, 3, 9]:
         heap.insert(num)
+        print(heap.heap)
     print(heap)
     print()
     print("Min-Heap List Representation".center(80))
     print(f"{heap.heap}".center(80))
 
     print()
-    heap.peek_min()
-    heap.remove_min()
-    print()
-    print(heap)
-    print()
-    heap.peek_min()
-    heap.remove_min()
-    print()
-    print(heap)
-    print()
-    heap.peek_min()
-    heap.remove_min()
-    print()
-    print(heap)
-    print()
+
+    # Loop to repeatedly remove the minimum element
+    for _ in range(3):  # Remove the minimum 3 times
+        heap.peek_min()
+        heap.remove_min()
+        print()
+        print(heap)
+        print()
+        
     print("Min-Heap List Representation".center(80))
     print(f"{heap.heap}".center(80))
