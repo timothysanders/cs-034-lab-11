@@ -79,7 +79,7 @@ class MinHeap:
         """
         if not self.heap:
             raise IndexError("Heap is empty")
-        print(f"Peeking at the minimum element {self.heap[0]} in the heap")
+        print(f"The minimum element in the heap is {self.heap[0]}")
         return self.heap[0]
 
     def __str__(self) -> str:
@@ -115,6 +115,25 @@ if __name__ == "__main__":
     heap = MinHeap()
     for num in [10, 4, 7, 1, 8, 3, 9]:
         heap.insert(num)
+    print(heap)
+    print()
+    print("Min-Heap List Representation".center(80))
+    print(f"{heap.heap}".center(80))
+
+    print()
+    heap.peek_min()
+    heap.remove_min()
+    print()
+    print(heap)
+    print()
+    heap.peek_min()
+    heap.remove_min()
+    print()
+    print(heap)
+    print()
+    heap.peek_min()
+    heap.remove_min()
+    print()
     print(heap)
     print()
     print("Min-Heap List Representation".center(80))
