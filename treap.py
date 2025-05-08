@@ -8,6 +8,8 @@
 
 
 
+# Re-implementing with capped depth and safer rotation logic
+
 import random
 import sys
 sys.setrecursionlimit(2000)  # Allow deeper recursion for printing
@@ -45,27 +47,43 @@ class Treap:
         new_root.right = root
         return new_root
 
-    def insert(self, root, key):
+    def _insert(self, root, key):
         if root is None:
-            print(f"Creating new node with key: {key} as root")
+            print(f"Creating new node with key: {key}")
             return TreapNode(key)
 
         if key < root.key:
             print(f"Going left from {root.key}")
-            root.left = self.insert(root.left, key)
-            if root.left.priority > root.priority:
+            root.left = self._insert(root.left, key)
+            if root.left and root.left.priority > root.priority:
                 print(f"Rotating right on {root.key} to restore heap property")
                 root = self.rotate_right(root)
         elif key > root.key:
             print(f"Going right from {root.key}")
-            root.right = self.insert(root.right, key)         
-            if root.right.priority > root.priority:
+            root.right = self._insert(root.right, key)
+            if root.right and root.right.priority > root.priority:
                 print(f"Rotating left on {root.key} to restore heap property")
                 root = self.rotate_left(root)
         else:
-              pass  # Handle duplicates if needed
+            print(f"Key {key} already exists in the tree")
 
         return root
+
+    def insert(self, key):
+        self.root = self._insert(self.root, key)
+
+
+    def search(self, root, key):
+        if not root:
+            return None
+
+        if key == root.key:
+            return root.key
+        elif key < root.key:
+            return self.search(root.left, key)
+        else:
+            return self.search(root.right, key)
+
 
     def print_tree(self, root=None, level=0, indent=""):
         #if root is None:
@@ -75,20 +93,30 @@ class Treap:
             #return
         if root:
             self.print_tree(root.right, level + 1, indent + "    ")
-            print(indent + f"({root.key}, P:{root.priority})")
+            print(indent + f"({root.key}/{root.priority})")
             self.print_tree(root.left, level + 1, indent + "    ")
 
-# Re-run the corrected implementation
-treap = Treap()
-treap_values = [50, 30, 70, 20, 40, 60, 80]
+if __name__ == "__main__":
+    treap = Treap()
+    treap_values = [50, 30, 70, 20, 40, 60, 80]
 
-for value in treap_values:
-    treap.root = treap.insert(treap.root, value)
+    for value in treap_values:
+        treap.insert(value)
+        print()
+
+    treap.print_tree()
+    print(f"\nTotal Rotations: {treap.rotation_count}")
+    print("\nLog of Rotations")
+    print("=========================")
+    for log_entry in treap.log:
+        print(log_entry)
+
+
     print()
-
-treap.print_tree()
-print(f"Total Rotations: {treap.rotation_count}")
-print("\nLog of Rotations")
-print("=========================")
-for log_entry in treap.log:
-    print(log_entry)
+    search_keys = [50, 80, 10]
+    start_time = time.time()
+    for v in search_keys:
+        result = treap.search(treap.root, v)
+        print(f"Search result for {v}: {result}")
+    end_time = time.time()
+    print(f"\nTotal execution time: {end_time - start_time} seconds")
