@@ -35,6 +35,7 @@ class MinHeap:
         -------
         None
         """
+        print(f"Inserting {item} into the heap")
         heapq.heappush(self.heap, item)
 
     def remove_min(self) -> Any:
@@ -52,6 +53,7 @@ class MinHeap:
         """
         if not self.heap:
             raise IndexError("Heap is empty")
+        print(f"Removing the minimum element {self.heap[0]} from the heap")
         return heapq.heappop(self.heap)
 
     def peek_min(self) -> Any:
@@ -69,6 +71,7 @@ class MinHeap:
         """
         if not self.heap:
             raise IndexError("Heap is empty")
+        print(f"Peeking at the minimum element {self.heap[0]} in the heap")
         return self.heap[0]
 
     def __str__(self) -> str:
