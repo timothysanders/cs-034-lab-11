@@ -8,8 +8,7 @@
 
 
 
-# Re-implementing with capped depth and safer rotation logic
-
+import time
 import random
 import sys
 sys.setrecursionlimit(2000)  # Allow deeper recursion for printing
@@ -47,20 +46,20 @@ class Treap:
         new_root.right = root
         return new_root
 
-    def _insert(self, root, key):
+    def insert(self, root, key):
         if root is None:
             print(f"Creating new node with key: {key}")
             return TreapNode(key)
 
         if key < root.key:
             print(f"Going left from {root.key}")
-            root.left = self._insert(root.left, key)
+            root.left = self.insert(root.left, key)
             if root.left and root.left.priority > root.priority:
                 print(f"Rotating right on {root.key} to restore heap property")
                 root = self.rotate_right(root)
         elif key > root.key:
             print(f"Going right from {root.key}")
-            root.right = self._insert(root.right, key)
+            root.right = self.insert(root.right, key)
             if root.right and root.right.priority > root.priority:
                 print(f"Rotating left on {root.key} to restore heap property")
                 root = self.rotate_left(root)
@@ -68,9 +67,6 @@ class Treap:
             print(f"Key {key} already exists in the tree")
 
         return root
-
-    def insert(self, key):
-        self.root = self._insert(self.root, key)
 
 
     def search(self, root, key):
@@ -101,7 +97,7 @@ if __name__ == "__main__":
     treap_values = [50, 30, 70, 20, 40, 60, 80]
 
     for value in treap_values:
-        treap.insert(value)
+        treap.root = treap.insert(treap.root, value)
         print()
 
     treap.print_tree()
