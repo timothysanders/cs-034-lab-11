@@ -111,6 +111,19 @@ class MinHeap:
             return_string += line.center(80) + "\n"
         return return_string.rstrip("\n")
 
+    def print_tree(self):
+        def _print_tree(index, indent):
+            if index >= len(self.heap):
+                return
+            right = 2 * index + 2
+            left = 2 * index + 1
+            _print_tree(left, indent + "   ")
+            print(f"{indent}{self.heap[index]}")
+            _print_tree(right, indent + "   ")
+        print("Heap Tree Structure:")
+        _print_tree(0, "")
+
+
 if __name__ == "__main__":
     heap = MinHeap()
     for num in [10, 4, 7, 1, 8, 3, 9]:
@@ -119,6 +132,7 @@ if __name__ == "__main__":
     print(heap)
     print()
     print("Min-Heap List Representation".center(80))
+    # Print constructed Heap
     print(f"{heap.heap}".center(80))
 
     print()
@@ -128,8 +142,10 @@ if __name__ == "__main__":
         heap.peek_min()
         heap.remove_min()
         print()
-        print(heap)
+        # Print the deconstructed Heap
+        heap.print_tree()
         print()
         
     print("Min-Heap List Representation".center(80))
     print(f"{heap.heap}".center(80))
+
