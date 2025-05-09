@@ -6,12 +6,24 @@
 
 #--------------------------------------------------------------------------------------------
 
+from __future__ import annotations
 import time
+from typing import Any
 import random
 import sys
 sys.setrecursionlimit(2000)  # Allow deeper recursion for printing
 
 class TreapNode:
+    """
+    Implements a treap node.
+
+    Attributes
+    ----------
+    key : Any
+    priority : int
+    left : TreapNode
+    right : TreapNode
+    """
     def __init__(self, key):
         self.key = key
         self.priority = random.randint(1, 100)
@@ -19,12 +31,50 @@ class TreapNode:
         self.right = None
 
 class Treap:
+    """
+    A Treap (Tree/Heap) implementation supporting insertion, rotation, and search.
+
+    Attributes
+    ----------
+    root : TreapNode
+        The root node of the treap.
+    rotation_count : int
+        The total number of rotations performed during insertions.
+    log : list
+        A list recording each rotation that occurs.
+
+    Methods
+    -------
+    rotate_left
+        Performs a left rotation around the given node.
+    rotate_right
+        Perform a right rotation around the given node.
+    insert
+        Insert a key into the treap while maintaining heap and BST properties.
+    search
+        Search for a key in the treap.
+    print_tree
+        Recursively print the tree structure of the treap.
+    """
     def __init__(self):
         self.root = None
         self.rotation_count = 0
         self.log = []
 
-    def rotate_left(self, root):
+    def rotate_left(self, root: TreapNode) -> TreapNode:
+        """
+        Perform a left rotation around the given node.
+
+        Parameters
+        ----------
+        root : TreapNode
+            The root node around which to perform the left rotation.
+
+        Returns
+        -------
+        TreapNode
+            The new root node after rotation.
+        """
         if not root or not root.right:
             return root
         self.rotation_count += 1
@@ -34,7 +84,20 @@ class Treap:
         new_root.left = root
         return new_root
 
-    def rotate_right(self, root):
+    def rotate_right(self, root: TreapNode) -> TreapNode:
+        """
+        Perform a right rotation around the given node.
+
+        Parameters
+        ----------
+        root : TreapNode
+            The root node around which to perform the right rotation.
+
+        Returns
+        -------
+        TreapNode
+            The new root node after rotation.
+        """
         if not root or not root.left:
             return root
         self.rotation_count += 1
@@ -44,7 +107,22 @@ class Treap:
         new_root.right = root
         return new_root
 
-    def insert(self, root, key):
+    def insert(self, root: TreapNode, key: Any) -> TreapNode:
+        """
+        Insert a key into the treap while maintaining heap and BST properties.
+
+        Parameters
+        ----------
+        root : TreapNode
+            The root of the treap subtree where the key should be inserted.
+        key : Any
+            The key to insert into the treap.
+
+        Returns
+        -------
+        TreapNode
+            The root node of the updated subtree.
+        """
         if root is None:
             print(f"Creating new node with key: {key}")
             return TreapNode(key)
@@ -69,7 +147,22 @@ class Treap:
         return root
 
 
-    def search(self, root, key):
+    def search(self, root: TreapNode, key: Any) -> Any | None:
+        """
+        Search for a key in the treap.
+
+        Parameters
+        ----------
+        root : TreapNode
+            The root of the treap subtree to search.
+        key : Any
+            The key to search for.
+
+        Returns
+        -------
+        Any or None
+            The key if found, otherwise None.
+        """
         if not root:
             return None
 
@@ -81,7 +174,21 @@ class Treap:
             return self.search(root.right, key)
 
 
-    def print_tree(self, root=None, indent=""):
+    def print_tree(self, root: TreapNode=None, indent: str="") -> None:
+        """
+        Recursively print the tree structure of the treap.
+
+        Parameters
+        ----------
+        root : TreapNode, optional
+            The root of the subtree to print. If None, starts at the treap root.
+        indent : str, default=""
+            Indentation used to format the tree output.
+
+        Returns
+        -------
+        None
+        """
         #if root is None:
             #root = self.root
         #if level > 10:  # Avoid infinite loops or very deep trees
