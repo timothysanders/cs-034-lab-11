@@ -70,3 +70,10 @@ def test_treap_insert_and_search():
     assert treap.search(treap.root, 501) == 501
     assert treap.search(treap.root, 600) == 600
     assert treap.search(treap.root, 601) == 601
+
+def test_treap_insert_duplicate_key(capsys):
+    treap = Treap()
+    treap.root = treap.insert(treap.root, 10)
+    treap.root = treap.insert(treap.root, 10)
+    out, _ = capsys.readouterr()
+    assert "already exists" in out
