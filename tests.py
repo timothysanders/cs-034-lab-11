@@ -71,6 +71,11 @@ def test_treap_insert_and_search():
     assert treap.search(treap.root, 600) == 600
     assert treap.search(treap.root, 601) == 601
 
+def test_treap_insert_nonexistent_search():
+    treap = Treap()
+    treap.root = treap.insert(treap.root, 400)
+    assert treap.search(treap.root, 500) is None
+
 def test_treap_insert_duplicate_key(capsys):
     treap = Treap()
     treap.root = treap.insert(treap.root, 10)
