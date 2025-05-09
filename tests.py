@@ -1,9 +1,33 @@
-# Created by: Michael Jung (ID:10680322), Timothy Sanders (ID: 01002147), Megan Ng (ID: 00756276)
+"""
+Created by: Michael Jung (ID:10680322), Timothy Sanders (ID: 01002147), Megan Ng (ID: 00756276)
 
-# Date: 5/05/25
+Date: 5/05/25
 
-# Course: Spr25_CS_034 CRN 39575
-#--------------------------------------------------------------------------------------------
+Course: Spr25_CS_034 CRN 39575
+
+Tests Covered
+-------------
+Heap
+    - test_insert_and_peek_min
+        Validates the MinHeap class insert method and that peek returns the correct minimum value
+    - test_remove_min
+        Validates that sequential remove_min() calls return the correct minimum value
+    - test_peek_min_on_empty_heap
+        Validates that an IndexError is appropriately raised when calling peek_min() on an empty heap
+    - test_remove_min_on_empty_heap
+        Validates that an IndexError is appropriately raised when calling remove_min() on an empty heap
+    - test_insert_duplicates
+        Validates that duplicates are appropriately inserted and returned from the heap
+Treap
+    - test_treap_rotation_count
+        Validates that rotations are performed after a series of inserts and are logged
+    - test_treap_insert_and_search
+        Validates that the Treap.search() method returns the found integer key from the treap
+    - test_treap_insert_nonexistent_search
+        Validates that the Treap.search() method returns None for a key that is not found
+    - test_treap_insert_duplicate_key
+        Validates that duplicate keys are not entered and a message is returned
+"""
 
 import pytest
 from min_heap import MinHeap
