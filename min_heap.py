@@ -88,7 +88,7 @@ class MinHeap:
 
         Returns
         -------
-        None
+        str
         """
         return_string = "Min-Heap Tree Representation".center(80) + "\n"
         if not self.heap:
@@ -111,7 +111,14 @@ class MinHeap:
             return_string += line.center(80) + "\n"
         return return_string.rstrip("\n")
 
-    def print_tree(self):
+    def print_tree(self) -> None:
+        """
+        Prints a visual representation of the existing heap tree structure.
+
+        Returns
+        -------
+        None
+        """
         def _print_tree(index, indent):
             if index >= len(self.heap):
                 return
