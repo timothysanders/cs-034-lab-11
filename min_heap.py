@@ -124,9 +124,9 @@ class MinHeap:
                 return
             right = 2 * index + 2
             left = 2 * index + 1
-            _print_tree(left, indent + "   ")
-            print(f"{indent}{self.heap[index]}")
             _print_tree(right, indent + "   ")
+            print(f"{indent}{self.heap[index]}")
+            _print_tree(left, indent + "   ")
         print("Heap Tree Structure:")
         _print_tree(0, "")
 
@@ -137,12 +137,11 @@ if __name__ == "__main__":
         heap.insert(num)
         print(heap.heap)
     print(heap)
-    print()
+    print("\n\n                     =====================================")
     print("Min-Heap List Representation".center(80))
     # Print constructed Heap
     print(f"{heap.heap}".center(80))
-
-    print()
+    print("                     =====================================\n")
 
     # Loop to repeatedly remove the minimum element
     for _ in range(3):  # Remove the minimum 3 times
@@ -152,7 +151,6 @@ if __name__ == "__main__":
         # Print the deconstructed Heap
         heap.print_tree()
         print()
-        
+
     print("Min-Heap List Representation".center(80))
     print(f"{heap.heap}".center(80))
-
