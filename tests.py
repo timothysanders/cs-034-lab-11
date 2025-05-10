@@ -28,6 +28,8 @@ Treap
     - test_treap_insert_duplicate_key
         Validates that duplicate keys are not entered and a message is returned
 """
+import random
+import time
 
 import pytest
 from min_heap import MinHeap
@@ -106,3 +108,62 @@ def test_treap_insert_duplicate_key(capsys):
     treap.root = treap.insert(treap.root, 10)
     out, _ = capsys.readouterr()
     assert "already exists" in out
+
+
+if __name__ == "__main__":
+    # Run basic tests to create MinHeap instance and test insert/remove
+    # Instantiate MinHeap instance
+    heap = MinHeap()
+    for num in [10, 4, 7, 1, 8, 3, 9]:
+        # Insert items into heap
+        heap.insert(num)
+        print(heap.heap)
+    print(heap)
+    print("\n\n                     =====================================")
+    print("Min-Heap List Representation".center(80))
+    # Print constructed Heap
+    print(f"{heap.heap}".center(80))
+    print("                     =====================================\n")
+
+    # Loop to repeatedly remove the minimum element
+    for _ in range(3):  # Remove the minimum 3 times
+        heap.peek_min()
+        # Remove items from heap
+        heap.remove_min()
+        print()
+        # Print the deconstructed Heap
+        heap.print_tree()
+        print()
+
+    print("Min-Heap List Representation".center(80))
+    print(f"{heap.heap}".center(80))
+
+    # Run basic tests to create Treap instance and test insert/search
+    # Instantiate Treap instance
+    treap = Treap()
+    treap_values = random.sample(range(1, 100), 7)
+
+    for value in treap_values:
+        # Insert values into Treap and verify structure
+        treap.root = treap.insert(treap.root, value)
+        print("\nTree Structure:")
+        print("----------------\n")
+        treap.print_tree(treap.root)
+        print("\n\n==================================================")
+
+    treap.print_tree()
+    print(f"\nTotal Rotations: {treap.rotation_count}")
+    print("\nLog of Rotations")
+    print("=========================")
+    for log_entry in treap.log:
+        print(log_entry)
+
+    print()
+    search_keys = [50, 80, 10]
+    start_time = time.time()
+    for v in search_keys:
+        # Validate search operation for Treap instance
+        result = treap.search(treap.root, v)
+        print(f"Search result for {v}: {result}")
+    end_time = time.time()
+    print(f"\nTotal searching time: {end_time - start_time} seconds")
